@@ -5,21 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>自動刷新頁面</title>
     <script>
+        // 密碼驗證
+        var isAdmin = false;
+        var password = prompt("請輸入密碼進行修改：");
+
+        // 檢查密碼
+        if (password === "你的密碼") {
+            isAdmin = true;
+            alert("您現在可以編輯內容！");
+        } else {
+            alert("密碼錯誤！");
+        }
+
+        // 每 10 秒刷新一次
         setTimeout(() => {
             location.reload();
-        }, 10000); // 每 10 秒刷新一次
+        }, 10000);
+
+        // 動態更新內容的函數
+        function updateContent() {
+            if (isAdmin) {
+                document.getElementById("content1").innerText = "新的內容 1！";
+                document.getElementById("content2").innerText = "新的內容 2！";
+                document.getElementById("content3").innerText = "新的內容 3！";
+                document.getElementById("content4").innerText = "新的內容 4！";
+            } else {
+                alert("您沒有修改權限！");
+            }
+        }
     </script>
 </head>
 <body>
-<h1 style="font-size: 80px;">539！</h1>
-<span style="font-size: 60px;">18.08.08.08.二.三x30</span><br>
-<span style="font-size: 60px;">08.18.85.80.二.三x30</span><br>
-<span style="font-size: 60px;">0555.二.三x30</span><br>
-<span style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
-<span style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
+    <h1 style="font-size: 80px;">539！</h1>
+    <span id="content1" style="font-size: 60px;">18.08.08.08.二.三x30</span><br>
+    <span id="content2" style="font-size: 60px;">08.18.85.80.二.三x30</span><br>
+    <span id="content3" style="font-size: 60px;">0555.二.三x30</span><br>
+    <span id="content4" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
+    <span id="content5" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
     <p>現在時間：<span id="time"></span></p>
     <script>
         document.getElementById("time").innerText = new Date().toLocaleTimeString();
     </script>
+
+    <!-- 只有管理員可以顯示的修改按鈕 -->
+    <button onclick="updateContent()" style="display: <?php echo isAdmin ? 'block' : 'none'; ?>">更改內容</button>
 </body>
 </html>
