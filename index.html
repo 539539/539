@@ -12,12 +12,12 @@
 
         // 儲存內容的函數
         function saveContent() {
-            // 獲取所有可編輯內容
-            var content1 = document.getElementById("content1").innerText;
-            var content2 = document.getElementById("content2").innerText;
-            var content3 = document.getElementById("content3").innerText;
-            var content4 = document.getElementById("content4").innerText;
-            var content5 = document.getElementById("content5").innerText;
+            // 獲取所有新的內容
+            var content1 = document.getElementById("input1").value;
+            var content2 = document.getElementById("input2").value;
+            var content3 = document.getElementById("input3").value;
+            var content4 = document.getElementById("input4").value;
+            var content5 = document.getElementById("input5").value;
 
             // 儲存到 localStorage
             localStorage.setItem("content1", content1);
@@ -26,6 +26,13 @@
             localStorage.setItem("content4", content4);
             localStorage.setItem("content5", content5);
 
+            // 更新頁面顯示
+            document.getElementById("content1").innerText = content1;
+            document.getElementById("content2").innerText = content2;
+            document.getElementById("content3").innerText = content3;
+            document.getElementById("content4").innerText = content4;
+            document.getElementById("content5").innerText = content5;
+
             alert("內容已儲存！");
         }
 
@@ -33,18 +40,23 @@
         function loadContent() {
             if (localStorage.getItem("content1")) {
                 document.getElementById("content1").innerText = localStorage.getItem("content1");
+                document.getElementById("input1").value = localStorage.getItem("content1");
             }
             if (localStorage.getItem("content2")) {
                 document.getElementById("content2").innerText = localStorage.getItem("content2");
+                document.getElementById("input2").value = localStorage.getItem("content2");
             }
             if (localStorage.getItem("content3")) {
                 document.getElementById("content3").innerText = localStorage.getItem("content3");
+                document.getElementById("input3").value = localStorage.getItem("content3");
             }
             if (localStorage.getItem("content4")) {
                 document.getElementById("content4").innerText = localStorage.getItem("content4");
+                document.getElementById("input4").value = localStorage.getItem("content4");
             }
             if (localStorage.getItem("content5")) {
                 document.getElementById("content5").innerText = localStorage.getItem("content5");
+                document.getElementById("input5").value = localStorage.getItem("content5");
             }
         }
 
@@ -56,13 +68,13 @@
             var password = prompt("請輸入密碼進行修改：");
 
             if (password === "0905760395") {
-                document.getElementById("content1").contentEditable = true;
-                document.getElementById("content2").contentEditable = true;
-                document.getElementById("content3").contentEditable = true;
-                document.getElementById("content4").contentEditable = true;
-                document.getElementById("content5").contentEditable = true;
-
-                alert("您現在可以編輯內容！");
+                // 顯示文本框讓用戶輸入新的內容
+                document.getElementById("input1").style.display = "block";
+                document.getElementById("input2").style.display = "block";
+                document.getElementById("input3").style.display = "block";
+                document.getElementById("input4").style.display = "block";
+                document.getElementById("input5").style.display = "block";
+                alert("您現在可以修改內容！");
             } else {
                 alert("密碼錯誤！");
             }
@@ -71,12 +83,19 @@
 </head>
 <body>
     <h1 style="font-size: 80px;">539！</h1>
-    <!-- 使用 contentEditable 使其可編輯 -->
-    <span id="content1" style="font-size: 60px;" contentEditable="false">18.08.08.08.二.三x30</span><br>
-    <span id="content2" style="font-size: 60px;" contentEditable="false">08.18.85.80.二.三x30</span><br>
-    <span id="content3" style="font-size: 60px;" contentEditable="false">0555.二.三x30</span><br>
-    <span id="content4" style="font-size: 60px;" contentEditable="false">04.09.18.20.二.三x30</span><br>
-    <span id="content5" style="font-size: 60px;" contentEditable="false">04.09.18.20.二.三x30</span><br>
+    <!-- 顯示的原本內容 -->
+    <span id="content1" style="font-size: 60px;">18.08.08.08.二.三x30</span><br>
+    <span id="content2" style="font-size: 60px;">08.18.85.80.二.三x30</span><br>
+    <span id="content3" style="font-size: 60px;">0555.二.三x30</span><br>
+    <span id="content4" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
+    <span id="content5" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
+
+    <!-- 用戶輸入新的內容 -->
+    <input type="text" id="input1" style="display:none; font-size: 60px;" placeholder="修改內容1">
+    <input type="text" id="input2" style="display:none; font-size: 60px;" placeholder="修改內容2">
+    <input type="text" id="input3" style="display:none; font-size: 60px;" placeholder="修改內容3">
+    <input type="text" id="input4" style="display:none; font-size: 60px;" placeholder="修改內容4">
+    <input type="text" id="input5" style="display:none; font-size: 60px;" placeholder="修改內容5"><br>
 
     <p>現在時間：<span id="time"></span></p>
     <script>
