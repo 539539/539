@@ -78,6 +78,23 @@
         window.onload = function() {
             loadContent(); // 頁面加載時啟動數據加載
         };
+
+        // 驗證密碼並顯示輸入框
+        function updateContent() {
+            var password = prompt("請輸入密碼進行修改：");
+
+            if (password === "0905760395") {
+                // 顯示輸入框讓用戶修改內容
+                document.getElementById("input1").style.display = "block";
+                document.getElementById("input2").style.display = "block";
+                document.getElementById("input3").style.display = "block";
+                document.getElementById("input4").style.display = "block";
+                document.getElementById("input5").style.display = "block";
+                alert("您現在可以修改內容！");
+            } else {
+                alert("密碼錯誤！");
+            }
+        }
     </script>
 </head>
 <body>
@@ -89,12 +106,14 @@
     <span id="content5" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
 
     <!-- 用戶輸入新的內容 -->
-    <input type="text" id="input1" style="font-size: 60px;" placeholder="修改內容1">
-    <input type="text" id="input2" style="font-size: 60px;" placeholder="修改內容2">
-    <input type="text" id="input3" style="font-size: 60px;" placeholder="修改內容3">
-    <input type="text" id="input4" style="font-size: 60px;" placeholder="修改內容4">
-    <input type="text" id="input5" style="font-size: 60px;" placeholder="修改內容5"><br>
+    <input type="text" id="input1" style="display:none; font-size: 60px;" placeholder="修改內容1">
+    <input type="text" id="input2" style="display:none; font-size: 60px;" placeholder="修改內容2">
+    <input type="text" id="input3" style="display:none; font-size: 60px;" placeholder="修改內容3">
+    <input type="text" id="input4" style="display:none; font-size: 60px;" placeholder="修改內容4">
+    <input type="text" id="input5" style="display:none; font-size: 60px;" placeholder="修改內容5"><br>
 
+    <!-- 編輯內容按鈕 -->
+    <button onclick="updateContent()">編輯內容</button>
     <!-- 儲存更改按鈕 -->
     <button onclick="saveContent()">儲存更改</button>
 </body>
