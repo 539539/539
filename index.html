@@ -5,10 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>自動刷新頁面</title>
     <script>
+        var refreshTimeout;
+
         // 每 10 秒刷新一次
-        setTimeout(() => {
-            location.reload();
-        }, 10000);
+        function startAutoRefresh() {
+            refreshTimeout = setTimeout(() => {
+                location.reload();
+            }, 10000); // 每 10 秒刷新一次
+        }
+
+        function stopAutoRefresh() {
+            clearTimeout(refreshTimeout); // 停止自動刷新
+        }
 
         // 儲存內容的函數
         function saveContent() {
@@ -34,6 +42,7 @@
             document.getElementById("content5").innerText = content5;
 
             alert("內容已儲存！");
+            startAutoRefresh(); // 儲存後重新啟動自動刷新
         }
 
         // 從 localStorage 加載儲存的內容
@@ -61,13 +70,19 @@
         }
 
         // 當頁面加載時，從 localStorage 加載內容
-        window.onload = loadContent;
+        window.onload = function() {
+            loadContent();
+            startAutoRefresh(); // 頁面加載時啟動自動刷新
+        };
 
         // 讓用戶編輯內容
         function updateContent() {
             var password = prompt("請輸入密碼進行修改：");
 
             if (password === "0905760395") {
+                // 停止自動刷新
+                stopAutoRefresh();
+
                 // 顯示文本框讓用戶輸入新的內容
                 document.getElementById("input1").style.display = "block";
                 document.getElementById("input2").style.display = "block";
