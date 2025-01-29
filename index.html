@@ -5,18 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>自動刷新頁面</title>
     <script>
-        // 密碼驗證
-        var isAdmin = false;
-        var password = prompt("請輸入密碼進行修改：");
-
-        // 檢查密碼
-        if (password === "0905760395") {
-            isAdmin = true;
-            alert("您現在可以編輯內容！");
-        } else {
-            alert("密碼錯誤！");
-        }
-
         // 每 10 秒刷新一次
         setTimeout(() => {
             location.reload();
@@ -24,13 +12,20 @@
 
         // 動態更新內容的函數
         function updateContent() {
-            if (isAdmin) {
+            // 讓用戶輸入密碼
+            var password = prompt("請輸入密碼進行修改：");
+
+            // 檢查密碼
+            if (password === "0905760395") {
+                // 密碼正確，開始更新內容
                 document.getElementById("content1").innerText = "新的內容 1！";
                 document.getElementById("content2").innerText = "新的內容 2！";
                 document.getElementById("content3").innerText = "新的內容 3！";
                 document.getElementById("content4").innerText = "新的內容 4！";
+                alert("內容已更新！");
             } else {
-                alert("您沒有修改權限！");
+                // 密碼錯誤
+                alert("密碼錯誤！");
             }
         }
     </script>
@@ -47,7 +42,7 @@
         document.getElementById("time").innerText = new Date().toLocaleTimeString();
     </script>
 
-    <!-- 只有管理員可以顯示的修改按鈕 -->
-    <button onclick="updateContent()" style="display: <%= isAdmin ? 'block' : 'none' %>">更改內容</button>
+    <!-- 點擊後觸發密碼輸入與內容更改 -->
+    <button onclick="updateContent()">更改內容</button>
 </body>
 </html>
