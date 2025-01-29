@@ -10,21 +10,59 @@
             location.reload();
         }, 10000);
 
-        // 動態更新內容的函數
+        // 儲存內容的函數
+        function saveContent() {
+            // 獲取所有可編輯內容
+            var content1 = document.getElementById("content1").innerText;
+            var content2 = document.getElementById("content2").innerText;
+            var content3 = document.getElementById("content3").innerText;
+            var content4 = document.getElementById("content4").innerText;
+            var content5 = document.getElementById("content5").innerText;
+
+            // 儲存到 localStorage
+            localStorage.setItem("content1", content1);
+            localStorage.setItem("content2", content2);
+            localStorage.setItem("content3", content3);
+            localStorage.setItem("content4", content4);
+            localStorage.setItem("content5", content5);
+
+            alert("內容已儲存！");
+        }
+
+        // 從 localStorage 加載儲存的內容
+        function loadContent() {
+            if (localStorage.getItem("content1")) {
+                document.getElementById("content1").innerText = localStorage.getItem("content1");
+            }
+            if (localStorage.getItem("content2")) {
+                document.getElementById("content2").innerText = localStorage.getItem("content2");
+            }
+            if (localStorage.getItem("content3")) {
+                document.getElementById("content3").innerText = localStorage.getItem("content3");
+            }
+            if (localStorage.getItem("content4")) {
+                document.getElementById("content4").innerText = localStorage.getItem("content4");
+            }
+            if (localStorage.getItem("content5")) {
+                document.getElementById("content5").innerText = localStorage.getItem("content5");
+            }
+        }
+
+        // 當頁面加載時，從 localStorage 加載內容
+        window.onload = loadContent;
+        
+        // 讓用戶編輯內容
         function updateContent() {
-            // 讓用戶輸入密碼
             var password = prompt("請輸入密碼進行修改：");
 
-            // 檢查密碼
             if (password === "0905760395") {
-                // 密碼正確，開始更新內容
-                document.getElementById("content1").innerText = "新的內容 1！";
-                document.getElementById("content2").innerText = "新的內容 2！";
-                document.getElementById("content3").innerText = "新的內容 3！";
-                document.getElementById("content4").innerText = "新的內容 4！";
-                alert("內容已更新！");
+                document.getElementById("content1").contentEditable = true;
+                document.getElementById("content2").contentEditable = true;
+                document.getElementById("content3").contentEditable = true;
+                document.getElementById("content4").contentEditable = true;
+                document.getElementById("content5").contentEditable = true;
+                alert("您現在可以編輯內容！");
             } else {
-                // 密碼錯誤
                 alert("密碼錯誤！");
             }
         }
@@ -32,17 +70,20 @@
 </head>
 <body>
     <h1 style="font-size: 80px;">539！</h1>
-    <span id="content1" style="font-size: 60px;">18.08.08.08.二.三x30</span><br>
-    <span id="content2" style="font-size: 60px;">08.18.85.80.二.三x30</span><br>
-    <span id="content3" style="font-size: 60px;">0555.二.三x30</span><br>
-    <span id="content4" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
-    <span id="content5" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
+    <span id="content1" style="font-size: 60px;" contentEditable="false">18.08.08.08.二.三x30</span><br>
+    <span id="content2" style="font-size: 60px;" contentEditable="false">08.18.85.80.二.三x30</span><br>
+    <span id="content3" style="font-size: 60px;" contentEditable="false">0555.二.三x30</span><br>
+    <span id="content4" style="font-size: 60px;" contentEditable="false">04.09.18.20.二.三x30</span><br>
+    <span id="content5" style="font-size: 60px;" contentEditable="false">04.09.18.20.二.三x30</span><br>
+
     <p>現在時間：<span id="time"></span></p>
     <script>
         document.getElementById("time").innerText = new Date().toLocaleTimeString();
     </script>
 
-    <!-- 點擊後觸發密碼輸入與內容更改 -->
-    <button onclick="updateContent()">更改內容</button>
+    <!-- 編輯內容按鈕 -->
+    <button onclick="updateContent()">編輯內容</button>
+    <!-- 儲存更改按鈕 -->
+    <button onclick="saveContent()">儲存更改</button>
 </body>
 </html>
