@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>自動刷新頁面</title>
     <!-- 引入 Firebase 庫 -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script>
         // Firebase 配置
         const firebaseConfig = {
             apiKey: "AIzaSyAUIF7LwBbjaLn-HPjHeOeJwmOuZK50vt0",
@@ -21,8 +20,8 @@
         };
 
         // 初始化 Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database(app);
 
         // 儲存內容到 Firebase
         function saveContent() {
@@ -32,29 +31,28 @@
             var content4 = document.getElementById("input4").value;
             var content5 = document.getElementById("input5").value;
 
-            set(ref(db, 'content'), {
+            // 儲存到 Firebase
+            firebase.database().ref('content').set({
                 content1: content1,
                 content2: content2,
                 content3: content3,
                 content4: content4,
                 content5: content5
-            }).then(() => {
-                document.getElementById("content1").innerText = content1;
-                document.getElementById("content2").innerText = content2;
-                document.getElementById("content3").innerText = content3;
-                document.getElementById("content4").innerText = content4;
-                document.getElementById("content5").innerText = content5;
-
-                alert("內容已儲存！");
-            }).catch((error) => {
-                console.error("儲存失敗: ", error);
             });
+
+            // 更新頁面顯示
+            document.getElementById("content1").innerText = content1;
+            document.getElementById("content2").innerText = content2;
+            document.getElementById("content3").innerText = content3;
+            document.getElementById("content4").innerText = content4;
+            document.getElementById("content5").innerText = content5;
+
+            alert("內容已儲存！");
         }
 
         // 從 Firebase 加載內容
         function loadContent() {
-            const contentRef = ref(db, 'content');
-            get(contentRef).then((snapshot) => {
+            firebase.database().ref('content').get().then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     document.getElementById("content1").innerText = data.content1;
@@ -62,6 +60,7 @@
                     document.getElementById("content3").innerText = data.content3;
                     document.getElementById("content4").innerText = data.content4;
                     document.getElementById("content5").innerText = data.content5;
+                    // 同步到輸入框
                     document.getElementById("input1").value = data.content1;
                     document.getElementById("input2").value = data.content2;
                     document.getElementById("input3").value = data.content3;
@@ -75,7 +74,7 @@
             });
         }
 
-        // 設置自動刷新，每 10 秒刷新一次
+        // 設定自動刷新
         var refreshTimeout;
         function startAutoRefresh() {
             refreshTimeout = setTimeout(() => {
@@ -117,11 +116,11 @@
 </head>
 <body>
     <h1 style="font-size: 80px;">539！</h1>
-    <span id="content1" style="font-size: 40px;">18.08.08.08.二.三x30</span><br>
-    <span id="content2" style="font-size: 40px;">08.18.85.80.二.三x30</span><br>
-    <span id="content3" style="font-size: 40px;">0555.二.三x30</span><br>
-    <span id="content4" style="font-size: 40px;">04.09.18.20.二.三x30</span><br>
-    <span id="content5" style="font-size: 40px;">04.09.18.20.二.三x30</span><br>
+    <span id="content1" style="font-size: 60px;">18.08.08.08.二.三x30</span><br>
+    <span id="content2" style="font-size: 60px;">08.18.85.80.二.三x30</span><br>
+    <span id="content3" style="font-size: 60px;">0555.二.三x30</span><br>
+    <span id="content4" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
+    <span id="content5" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
 
     <!-- 用戶輸入新的內容 -->
     <input type="text" id="input1" style="display:none; font-size: 60px;" placeholder="修改內容1">
