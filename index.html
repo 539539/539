@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>自動刷新頁面</title>
     <!-- 引入 Firebase 庫 -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script>
-        // Firebase 配置（這是您提供的 Firebase 配置）
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        // Firebase 配置
         const firebaseConfig = {
             apiKey: "AIzaSyAUIF7LwBbjaLn-HPjHeOeJwmOuZK50vt0",
             authDomain: "project-5841418075685690201.firebaseapp.com",
@@ -20,8 +21,8 @@
         };
 
         // 初始化 Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.database(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
         // 儲存內容到 Firebase
         function saveContent() {
@@ -31,28 +32,29 @@
             var content4 = document.getElementById("input4").value;
             var content5 = document.getElementById("input5").value;
 
-            // 將內容儲存到 Firebase
-            firebase.database().ref('content').set({
+            set(ref(db, 'content'), {
                 content1: content1,
                 content2: content2,
                 content3: content3,
                 content4: content4,
                 content5: content5
+            }).then(() => {
+                document.getElementById("content1").innerText = content1;
+                document.getElementById("content2").innerText = content2;
+                document.getElementById("content3").innerText = content3;
+                document.getElementById("content4").innerText = content4;
+                document.getElementById("content5").innerText = content5;
+
+                alert("內容已儲存！");
+            }).catch((error) => {
+                console.error("儲存失敗: ", error);
             });
-
-            // 更新頁面顯示
-            document.getElementById("content1").innerText = content1;
-            document.getElementById("content2").innerText = content2;
-            document.getElementById("content3").innerText = content3;
-            document.getElementById("content4").innerText = content4;
-            document.getElementById("content5").innerText = content5;
-
-            alert("內容已儲存！");
         }
 
         // 從 Firebase 加載內容
         function loadContent() {
-            firebase.database().ref('content').get().then((snapshot) => {
+            const contentRef = ref(db, 'content');
+            get(contentRef).then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     document.getElementById("content1").innerText = data.content1;
@@ -60,31 +62,25 @@
                     document.getElementById("content3").innerText = data.content3;
                     document.getElementById("content4").innerText = data.content4;
                     document.getElementById("content5").innerText = data.content5;
-                    // 同步到輸入框
                     document.getElementById("input1").value = data.content1;
                     document.getElementById("input2").value = data.content2;
                     document.getElementById("input3").value = data.content3;
                     document.getElementById("input4").value = data.content4;
                     document.getElementById("input5").value = data.content5;
-                } else {
-                    console.log("No data available");
                 }
             }).catch((error) => {
-                console.error(error);
+                console.error("讀取失敗: ", error);
             });
         }
 
-        // 當頁面加載時，從 Firebase 加載內容
         window.onload = function() {
             loadContent(); // 頁面加載時啟動數據加載
         };
 
-        // 驗證密碼並顯示輸入框
         function updateContent() {
             var password = prompt("請輸入密碼進行修改：");
 
             if (password === "0905760395") {
-                // 顯示輸入框讓用戶修改內容
                 document.getElementById("input1").style.display = "block";
                 document.getElementById("input2").style.display = "block";
                 document.getElementById("input3").style.display = "block";
@@ -105,16 +101,13 @@
     <span id="content4" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
     <span id="content5" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
 
-    <!-- 用戶輸入新的內容 -->
     <input type="text" id="input1" style="display:none; font-size: 60px;" placeholder="修改內容1">
     <input type="text" id="input2" style="display:none; font-size: 60px;" placeholder="修改內容2">
     <input type="text" id="input3" style="display:none; font-size: 60px;" placeholder="修改內容3">
     <input type="text" id="input4" style="display:none; font-size: 60px;" placeholder="修改內容4">
     <input type="text" id="input5" style="display:none; font-size: 60px;" placeholder="修改內容5"><br>
 
-    <!-- 編輯內容按鈕 -->
     <button onclick="updateContent()">編輯內容</button>
-    <!-- 儲存更改按鈕 -->
     <button onclick="saveContent()">儲存更改</button>
 </body>
 </html>
