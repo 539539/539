@@ -50,7 +50,7 @@
 
         // 當頁面加載時，從 localStorage 加載內容
         window.onload = loadContent;
-        
+
         // 讓用戶編輯內容
         function updateContent() {
             var password = prompt("請輸入密碼進行修改：");
@@ -61,6 +61,7 @@
                 document.getElementById("content3").contentEditable = true;
                 document.getElementById("content4").contentEditable = true;
                 document.getElementById("content5").contentEditable = true;
+
                 alert("您現在可以編輯內容！");
             } else {
                 alert("密碼錯誤！");
@@ -70,6 +71,7 @@
 </head>
 <body>
     <h1 style="font-size: 80px;">539！</h1>
+    <!-- 使用 contentEditable 使其可編輯 -->
     <span id="content1" style="font-size: 60px;" contentEditable="false">18.08.08.08.二.三x30</span><br>
     <span id="content2" style="font-size: 60px;" contentEditable="false">08.18.85.80.二.三x30</span><br>
     <span id="content3" style="font-size: 60px;" contentEditable="false">0555.二.三x30</span><br>
