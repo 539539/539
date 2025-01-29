@@ -4,35 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>自動刷新頁面</title>
+    <!-- 引入 Firebase 庫 -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
     <script>
-        // Firebase 配置（替換為您自己的 Firebase 配置）
+        // Firebase 配置（這是您提供的 Firebase 配置）
         const firebaseConfig = {
-            apiKey: "您的API密鑰",
-            authDomain: "您的Firebase項目ID.firebaseapp.com",
-            databaseURL: "https://您的Firebase項目ID.firebaseio.com",
-            projectId: "您的Firebase項目ID",
-            storageBucket: "您的Firebase項目ID.appspot.com",
-            messagingSenderId: "發送者ID",
-            appId: "應用ID"
+            apiKey: "AIzaSyAUIF7LwBbjaLn-HPjHeOeJwmOuZK50vt0",
+            authDomain: "project-5841418075685690201.firebaseapp.com",
+            databaseURL: "https://project-5841418075685690201-default-rtdb.firebaseio.com",
+            projectId: "project-5841418075685690201",
+            storageBucket: "project-5841418075685690201.firebasestorage.app",
+            messagingSenderId: "598811156382",
+            appId: "1:598811156382:web:3674afd4af5c8d2f8dc08f"
         };
-        
+
         // 初始化 Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.database(app);
-        
-        // 每 10 秒刷新一次
-        var refreshTimeout;
-        function startAutoRefresh() {
-            refreshTimeout = setTimeout(() => {
-                location.reload();
-            }, 10000); // 每 10 秒刷新一次
-        }
-
-        function stopAutoRefresh() {
-            clearTimeout(refreshTimeout); // 停止自動刷新
-        }
 
         // 儲存內容到 Firebase
         function saveContent() {
@@ -59,7 +48,6 @@
             document.getElementById("content5").innerText = content5;
 
             alert("內容已儲存！");
-            startAutoRefresh(); // 儲存後重新啟動自動刷新
         }
 
         // 從 Firebase 加載內容
@@ -88,26 +76,8 @@
 
         // 當頁面加載時，從 Firebase 加載內容
         window.onload = function() {
-            loadContent();
-            startAutoRefresh(); // 頁面加載時啟動自動刷新
+            loadContent(); // 頁面加載時啟動數據加載
         };
-
-        // 讓用戶編輯內容
-        function updateContent() {
-            var password = prompt("請輸入密碼進行修改：");
-
-            if (password === "0905760395") {
-                stopAutoRefresh();
-                document.getElementById("input1").style.display = "block";
-                document.getElementById("input2").style.display = "block";
-                document.getElementById("input3").style.display = "block";
-                document.getElementById("input4").style.display = "block";
-                document.getElementById("input5").style.display = "block";
-                alert("您現在可以修改內容！");
-            } else {
-                alert("密碼錯誤！");
-            }
-        }
     </script>
 </head>
 <body>
@@ -119,19 +89,12 @@
     <span id="content5" style="font-size: 60px;">04.09.18.20.二.三x30</span><br>
 
     <!-- 用戶輸入新的內容 -->
-    <input type="text" id="input1" style="display:none; font-size: 60px;" placeholder="修改內容1">
-    <input type="text" id="input2" style="display:none; font-size: 60px;" placeholder="修改內容2">
-    <input type="text" id="input3" style="display:none; font-size: 60px;" placeholder="修改內容3">
-    <input type="text" id="input4" style="display:none; font-size: 60px;" placeholder="修改內容4">
-    <input type="text" id="input5" style="display:none; font-size: 60px;" placeholder="修改內容5"><br>
+    <input type="text" id="input1" style="font-size: 60px;" placeholder="修改內容1">
+    <input type="text" id="input2" style="font-size: 60px;" placeholder="修改內容2">
+    <input type="text" id="input3" style="font-size: 60px;" placeholder="修改內容3">
+    <input type="text" id="input4" style="font-size: 60px;" placeholder="修改內容4">
+    <input type="text" id="input5" style="font-size: 60px;" placeholder="修改內容5"><br>
 
-    <p>現在時間：<span id="time"></span></p>
-    <script>
-        document.getElementById("time").innerText = new Date().toLocaleTimeString();
-    </script>
-
-    <!-- 編輯內容按鈕 -->
-    <button onclick="updateContent()">編輯內容</button>
     <!-- 儲存更改按鈕 -->
     <button onclick="saveContent()">儲存更改</button>
 </body>
