@@ -41,6 +41,8 @@
 
         // 按住 3 秒觸發事件
         function holdButton(button, action) {
+            if (!button) return;  // 防止按鈕不存在時出錯
+
             let timer;
             button.addEventListener("mousedown", () => {
                 timer = setTimeout(action, 3000);
@@ -106,8 +108,12 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            holdButton(document.getElementById("button5"), updateContent);
-            holdButton(document.getElementById("button9"), saveContent);
+            const button5 = document.getElementById("button5");
+            const button9 = document.getElementById("button9");
+
+            // 確保元素存在後再進行事件綁定
+            if (button5) holdButton(button5, updateContent);
+            if (button9) holdButton(button9, saveContent);
         });
     </script>
     <style>
