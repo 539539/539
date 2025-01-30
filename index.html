@@ -4,185 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>539</title>
-    <!-- 引入 Firebase 庫 -->
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
-    <script>
-        // Firebase 配置
-        const firebaseConfig = {
-            apiKey: "AIzaSyAUIF7Lw...",
-            authDomain: "project-5841418075685690201.firebaseapp.com",
-            databaseURL: "https://project-5841418075685690201-default-rtdb.firebaseio.com",
-            projectId: "project-5841418075685690201",
-            storageBucket: "project-5841418075685690201.appspot.com",
-            messagingSenderId: "598811156382",
-            appId: "1:598811156382:web:3674afd4af5c8d2f8dc08f"
-        };
-
-        // 初始化 Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // 監聽 Firebase 數據變化，實時更新畫面
-        db.ref('content').on('value', (snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                document.getElementById("content1").innerText = data.content1;
-                document.getElementById("content2").innerText = data.content2;
-                document.getElementById("content3").innerText = data.content3;
-                document.getElementById("content4").innerText = data.content4;
-                document.getElementById("content5").innerText = data.content5;
-            }
-        });
-
-        // 按住 3 秒觸發事件
-        function holdButton(button, action) {
-            let timer;
-            button.addEventListener("mousedown", () => {
-                timer = setTimeout(action, 3000);
-            });
-            button.addEventListener("mouseup", () => {
-                clearTimeout(timer);
-            });
-            button.addEventListener("mouseleave", () => {
-                clearTimeout(timer);
-            });
-
-            // 處理手機觸控
-            button.addEventListener("touchstart", () => {
-                timer = setTimeout(action, 3000);
-            });
-            button.addEventListener("touchend", () => {
-                clearTimeout(timer);
-            });
-            button.addEventListener("touchcancel", () => {
-                clearTimeout(timer);
-            });
-        }
-
-        // 儲存內容到 Firebase
-        function saveContent() {
-            var content1 = document.getElementById("input1").value;
-            var content2 = document.getElementById("input2").value;
-            var content3 = document.getElementById("input3").value;
-            var content4 = document.getElementById("input4").value;
-            var content5 = document.getElementById("input5").value;
-
-            const updates = {};
-
-            if (content1) updates.content1 = content1;
-            if (content2) updates.content2 = content2;
-            if (content3) updates.content3 = content3;
-            if (content4) updates.content4 = content4;
-            if (content5) updates.content5 = content5;
-
-            if (Object.keys(updates).length > 0) {
-                db.ref('content').update(updates)
-                    .then(() => {
-                        alert("內容已儲存！");
-                    })
-                    .catch((error) => {
-                        alert("儲存失敗：" + error.message);
-                    });
-            } else {
-                alert("未輸入任何修改內容！");
-            }
-        }
-
-        // 驗證密碼並顯示輸入框
-        function updateContent() {
-            var password = prompt("請輸入密碼進行修改：");
-            if (password === "0905760395") {
-                document.querySelectorAll("input").forEach(input => input.style.display = "block");
-                alert("您現在可以修改內容！");
-            } else {
-                alert("密碼錯誤！");
-            }
-        }
-
-        window.onload = function() {
-            holdButton(document.getElementById("button5"), updateContent);
-            holdButton(document.getElementById("button9"), saveContent);
-        };
-    </script>
     <style>
         body {
             background: linear-gradient(to bottom, #f0f0f0, #d6d6d6);
             text-align: center;
+            font-family: Arial, sans-serif;
         }
-        .button {
-            background: transparent;
+
+        .button, .content {
+            font-size: 80px;
+            display: inline-block;
+            height: 100px;
+            line-height: 100px; /* 垂直置中 */
+            width: 100px;
+            margin: 0;
+            color: black;
             border: none;
-            font-size: 80px;
-            display: inline-block;
-            margin-top: 50px;
+            background: transparent;
             cursor: default;
-            width: 80px;
-            height: 80px;
-            line-height: 80px; /* 讓數字垂直置中 */
-            color: black; /* 設置文字顏色 */
             -webkit-user-select: none; /* 禁止選擇文字 */
-            -moz-user-select: none; /* 禁止選擇文字 */
-            user-select: none; /* 禁止選擇文字 */
+            -moz-user-select: none;
+            user-select: none;
         }
-        #content-wrapper {
-            font-size: 80px;
-            display: inline-block;
-            line-height: 80px; /* 讓數字垂直置中 */
+
+        .button:hover {
+            background: transparent; /* 去掉懸浮效果 */
         }
-        .input-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        input {
-            font-size: 35px;
-            margin: 10px 0;
-            display: block;
-            width: 300px;
-            text-align: center;
-        }
-        /* 手機樣式，讓所有元素在同一行並對齊 */
+
+        /* 手機樣式調整 */
         @media (max-width: 600px) {
-            .button, #content-wrapper {
-                display: inline-block;
+            .button, .content {
                 font-size: 50px;
                 height: 70px;
-                line-height: 70px; /* 使按鈕和數字的高度一致 */
-                margin: 0 5px;
-                color: black; /* 按鈕顏色設置為黑色，無顏色顯示 */
+                line-height: 70px;
+                width: 70px;
             }
-            #content-wrapper {
-                line-height: 70px; /* 垂直置中 */
-            }
-        }
-        /* 去掉按鈕懸浮效果 */
-        .button:hover {
-            background: transparent;
         }
     </style>
 </head>
 <body>
     <h1>
         <button id="button5" class="button">5</button>
-        <span id="content-wrapper">3</span>
+        <span id="content3" class="content">3</span>
         <button id="button9" class="button">9!</button>
     </h1>
 
-    <span id="content1" style="display:block;"></span><br>
-    <span id="content2" style="display:block;"></span><br>
-    <span id="content3" style="display:block;"></span><br>
-    <span id="content4" style="display:block;"></span><br>
-    <span id="content5" style="display:block;"></span><br>
-
-    <!-- 用戶輸入新的內容 -->
-    <div class="input-wrapper">
-        <input type="text" id="input1" style="display:none;" placeholder="修改內容1">
-        <input type="text" id="input2" style="display:none;" placeholder="修改內容2">
-        <input type="text" id="input3" style="display:none;" placeholder="修改內容3">
-        <input type="text" id="input4" style="display:none;" placeholder="修改內容4">
-        <input type="text" id="input5" style="display:none;" placeholder="修改內容5">
+    <div id="content-section">
+        <p>35×36×37×38×39三三×3</p>
+        <p>35×36×37×38×39三三×1</p>
+        <p>35×36×37×38×39三三×1</p>
     </div>
 </body>
 </html>
