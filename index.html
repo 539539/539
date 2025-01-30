@@ -90,8 +90,8 @@
         }
 
         window.onload = function() {
-            holdButton(document.getElementById("editButton"), updateContent);
-            holdButton(document.getElementById("saveButton"), saveContent);
+            holdButton(document.getElementById("button5"), updateContent);
+            holdButton(document.getElementById("button9"), saveContent);
         };
     </script>
     <style>
@@ -99,40 +99,43 @@
             background: linear-gradient(to bottom, #f0f0f0, #d6d6d6);
             text-align: center;
         }
-        button {
+        .button {
             background: transparent;
             border: none;
-            width: 50px;
-            height: 50px;
+            font-size: 80px;
             display: inline-block;
             margin-top: 50px;
-            border-radius: 50%;
+            cursor: pointer;
             transition: background 0.3s;
         }
-        button:hover {
+        .button:hover {
             background: rgba(0, 0, 0, 0.1);
         }
         #content-wrapper {
             display: inline-block;
             font-size: 35px;
         }
-        .button-container {
+        .input-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
-        .button-container button {
-            margin: 0 20px;
+        input {
+            font-size: 35px;
+            margin: 10px 0;
+            display: block;
+            width: 300px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1 style="font-size: 80px;">5<span id="content-wrapper">3</span>9!</h1>
-
-    <div class="button-container">
-        <button id="editButton">編輯</button>
-        <button id="saveButton">儲存</button>
-    </div>
+    <h1 style="font-size: 80px;">
+        <button id="button5" class="button">5</button>
+        <span id="content-wrapper">3</span>
+        <button id="button9" class="button">9!</button>
+    </h1>
 
     <span id="content1" style="display:block;"></span><br>
     <span id="content2" style="display:block;"></span><br>
@@ -141,10 +144,12 @@
     <span id="content5" style="display:block;"></span><br>
 
     <!-- 用戶輸入新的內容 -->
-    <input type="text" id="input1" style="display:none; font-size: 35px;" placeholder="修改內容1">
-    <input type="text" id="input2" style="display:none; font-size: 35px;" placeholder="修改內容2">
-    <input type="text" id="input3" style="display:none; font-size: 35px;" placeholder="修改內容3">
-    <input type="text" id="input4" style="display:none; font-size: 35px;" placeholder="修改內容4">
-    <input type="text" id="input5" style="display:none; font-size: 35px;" placeholder="修改內容5">
+    <div class="input-wrapper">
+        <input type="text" id="input1" style="display:none;" placeholder="修改內容1">
+        <input type="text" id="input2" style="display:none;" placeholder="修改內容2">
+        <input type="text" id="input3" style="display:none;" placeholder="修改內容3">
+        <input type="text" id="input4" style="display:none;" placeholder="修改內容4">
+        <input type="text" id="input5" style="display:none;" placeholder="修改內容5">
+    </div>
 </body>
 </html>
