@@ -36,13 +36,17 @@
         });
 
         // 按住 3 秒觸發事件
-        function holdButton(action) {
+        function holdButton(button, action) {
             let timer;
-            return {
-                onmousedown: () => { timer = setTimeout(action, 3000); },
-                onmouseup: () => { clearTimeout(timer); },
-                onmouseleave: () => { clearTimeout(timer); }
-            };
+            button.addEventListener("mousedown", () => {
+                timer = setTimeout(action, 3000);
+            });
+            button.addEventListener("mouseup", () => {
+                clearTimeout(timer);
+            });
+            button.addEventListener("mouseleave", () => {
+                clearTimeout(timer);
+            });
         }
 
         // 儲存內容到 Firebase
@@ -72,6 +76,11 @@
                 alert("密碼錯誤！");
             }
         }
+
+        window.onload = function() {
+            holdButton(document.getElementById("editButton"), updateContent);
+            holdButton(document.getElementById("saveButton"), saveContent);
+        };
     </script>
     <style>
         button {
@@ -102,8 +111,8 @@
     <input type="text" id="input5" style="display:none; font-size: 35px;" placeholder="修改內容5"><br>
 
     <!-- 編輯內容按鈕 -->
-    <button id="editButton" onmousedown="holdButton(updateContent).onmousedown()" onmouseup="holdButton(updateContent).onmouseup()" onmouseleave="holdButton(updateContent).onmouseleave()"></button>
+    <button id="editButton"></button>
     <!-- 儲存更改按鈕 -->
-    <button id="saveButton" onmousedown="holdButton(saveContent).onmousedown()" onmouseup="holdButton(saveContent).onmouseup()" onmouseleave="holdButton(saveContent).onmouseleave()"></button>
+    <button id="saveButton"></button>
 </body>
 </html>
