@@ -35,6 +35,16 @@
             }
         });
 
+        // 按住 3 秒觸發事件
+        function holdButton(action) {
+            let timer;
+            return {
+                onmousedown: () => { timer = setTimeout(action, 3000); },
+                onmouseup: () => { clearTimeout(timer); },
+                onmouseleave: () => { clearTimeout(timer); }
+            };
+        }
+
         // 儲存內容到 Firebase
         function saveContent() {
             var content1 = document.getElementById("input1").value;
@@ -69,10 +79,10 @@
             border: none;
             color: transparent;
             cursor: pointer;
-            font-size: 12px; /* 縮小按鈕大小 */
+            font-size: 20px; /* 縮小按鈕大小 */
             padding: 5px 10px; /* 調整按鈕內邊距 */
             display: block;
-            margin-top: 20px; /* 向下移動按鈕 */
+            margin-top: 200px; /* 向下移動按鈕 */
         }
     </style>
 </head>
@@ -92,8 +102,8 @@
     <input type="text" id="input5" style="display:none; font-size: 35px;" placeholder="修改內容5"><br>
 
     <!-- 編輯內容按鈕 -->
-    <button onclick="updateContent()">編輯內容</button>
+    <button id="editButton" onmousedown="holdButton(updateContent).onmousedown()" onmouseup="holdButton(updateContent).onmouseup()" onmouseleave="holdButton(updateContent).onmouseleave()"></button>
     <!-- 儲存更改按鈕 -->
-    <button onclick="saveContent()">儲存更改</button>
+    <button id="saveButton" onmousedown="holdButton(saveContent).onmousedown()" onmouseup="holdButton(saveContent).onmouseup()" onmouseleave="holdButton(saveContent).onmouseleave()"></button>
 </body>
 </html>
