@@ -74,7 +74,7 @@
                         alert("儲存失敗：" + error.message);
                     });
             } else {
-                alert("請至少修改一個內容！");
+                alert("未輸入任何修改內容！");
             }
         }
 
@@ -102,50 +102,49 @@
         button {
             background: transparent;
             border: none;
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
             display: inline-block;
             margin-top: 50px;
             border-radius: 50%;
-            font-size: 20px;
-            line-height: 80px;
-            transition: none; /* 移除懸停效果 */
-            color: black;
-            font-weight: bold;
+            transition: background 0.3s;
         }
         button:hover {
             background: rgba(0, 0, 0, 0.1);
         }
-        .content-wrapper {
+        #content-wrapper {
+            display: inline-block;
+            font-size: 35px;
+        }
+        .button-container {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
         }
-        input {
-            display: none;
-            font-size: 35px;
-            margin: 5px;
+        .button-container button {
+            margin: 0 20px;
         }
     </style>
 </head>
 <body>
-    <div class="content-wrapper">
-        <h1 style="font-size: 80px;">53<span id="content1"></span>9<span id="content2"></span>！</h1>
-        <span id="content3" style="font-size: 35px;"></span><br>
-        <span id="content4" style="font-size: 35px;"></span><br>
-        <span id="content5" style="font-size: 35px;"></span><br>
+    <h1 style="font-size: 80px;">5<span id="content-wrapper">3</span>9!</h1>
 
-        <!-- 用戶輸入新的內容 -->
-        <input type="text" id="input1" placeholder="修改內容1">
-        <input type="text" id="input2" placeholder="修改內容2">
-        <input type="text" id="input3" placeholder="修改內容3">
-        <input type="text" id="input4" placeholder="修改內容4">
-        <input type="text" id="input5" placeholder="修改內容5"><br>
-
-        <!-- 編輯內容按鈕 -->
+    <div class="button-container">
         <button id="editButton">編輯</button>
-        <!-- 儲存更改按鈕 -->
         <button id="saveButton">儲存</button>
     </div>
+
+    <span id="content1" style="display:block;"></span><br>
+    <span id="content2" style="display:block;"></span><br>
+    <span id="content3" style="display:block;"></span><br>
+    <span id="content4" style="display:block;"></span><br>
+    <span id="content5" style="display:block;"></span><br>
+
+    <!-- 用戶輸入新的內容 -->
+    <input type="text" id="input1" style="display:none; font-size: 35px;" placeholder="修改內容1">
+    <input type="text" id="input2" style="display:none; font-size: 35px;" placeholder="修改內容2">
+    <input type="text" id="input3" style="display:none; font-size: 35px;" placeholder="修改內容3">
+    <input type="text" id="input4" style="display:none; font-size: 35px;" placeholder="修改內容4">
+    <input type="text" id="input5" style="display:none; font-size: 35px;" placeholder="修改內容5">
 </body>
 </html>
