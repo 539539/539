@@ -116,6 +116,7 @@
 
         window.onload = function() {
             holdButton(document.getElementById("button5"), updateContent);
+            holdButton(document.getElementById("button3"), updateContent); // 為 3 添加功能
             holdButton(document.getElementById("button9"), saveContent);
         };
     </script>
@@ -180,7 +181,8 @@
 <body>
     <h1>
         <button id="button5" class="button">5</button>
-        <span id="content-wrapper">3</span>
+        <button id="button3" class="button">3</button> <!-- 這裡將 3 改為按鈕 -->
+        <span id="content-wrapper"></span>
         <button id="button9" class="button">9!</button>
     </h1>
 
