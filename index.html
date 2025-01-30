@@ -139,6 +139,21 @@
             width: 300px;
             text-align: center;
         }
+
+        /* 讓按鈕在手機上顯示為同一行並移除顏色 */
+        @media screen and (max-width: 600px) {
+            h1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .button {
+                background: transparent;
+                color: black;  /* 文字顏色 */
+                border: none;
+                cursor: pointer;
+            }
+        }
     </style>
 </head>
 <body>
