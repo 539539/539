@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>539</title>
-
-    <!-- 防止顯示網頁內容 -->
-    <meta name="robots" content="noindex, nofollow" />
-    
     <!-- 引入 Firebase 庫 -->
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
@@ -41,8 +37,6 @@
 
         // 按住 3 秒觸發事件
         function holdButton(button, action) {
-            if (!button) return;  // 防止按鈕不存在時出錯
-
             let timer;
             button.addEventListener("mousedown", () => {
                 timer = setTimeout(action, 3000);
@@ -98,38 +92,18 @@
         // 驗證密碼並顯示輸入框
         function updateContent() {
             var password = prompt("請輸入密碼進行修改：");
-            if (password === "888") {
-                // 密碼正確，隱藏原始內容，顯示輸入框
-                document.querySelectorAll("span").forEach(span => span.style.display = "none");
+            if (password === "0905760395") {
                 document.querySelectorAll("input").forEach(input => input.style.display = "block");
-
-                // 讓輸入框顯示 Firebase 內容
-                const content1 = document.getElementById("content1").innerText;
-                const content2 = document.getElementById("content2").innerText;
-                const content3 = document.getElementById("content3").innerText;
-                const content4 = document.getElementById("content4").innerText;
-                const content5 = document.getElementById("content5").innerText;
-
-                document.getElementById("input1").value = content1;
-                document.getElementById("input2").value = content2;
-                document.getElementById("input3").value = content3;
-                document.getElementById("input4").value = content4;
-                document.getElementById("input5").value = content5;
-
                 alert("您現在可以修改內容！");
             } else {
                 alert("密碼錯誤！");
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const button5 = document.getElementById("button5");
-            const button9 = document.getElementById("button9");
-
-            // 確保元素存在後再進行事件綁定
-            if (button5) holdButton(button5, updateContent);
-            if (button9) holdButton(button9, saveContent);
-        });
+        window.onload = function() {
+            holdButton(document.getElementById("button5"), updateContent);
+            holdButton(document.getElementById("button9"), saveContent);
+        };
     </script>
     <style>
         body {
@@ -141,21 +115,20 @@
             border: none;
             font-size: 80px;
             display: inline-block;
-            margin: 0;
+            margin-top: 50px;
             cursor: default;
-            width: auto;
-            height: auto;
-            line-height: normal;
-            color: black;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
+            width: 80px;
+            height: 80px;
+            line-height: 80px; /* 讓數字垂直置中 */
+            color: black; /* 設置文字顏色 */
+            -webkit-user-select: none; /* 禁止選擇文字 */
+            -moz-user-select: none; /* 禁止選擇文字 */
+            user-select: none; /* 禁止選擇文字 */
         }
         #content-wrapper {
             font-size: 80px;
             display: inline-block;
-            line-height: normal;
-            font-weight: normal;
+            line-height: 80px; /* 讓數字垂直置中 */
         }
         .input-wrapper {
             display: flex;
@@ -170,53 +143,46 @@
             width: 300px;
             text-align: center;
         }
-        /* 改進手機版樣式，使文字保持在同一行 */
+        /* 手機樣式，讓所有元素在同一行並對齊 */
         @media (max-width: 600px) {
             .button, #content-wrapper {
                 display: inline-block;
-                font-size: 60px; /* 調整手機版字體大小 */
-                height: auto;
-                line-height: normal;
+                font-size: 50px;
+                height: 70px;
+                line-height: 70px; /* 使按鈕和數字的高度一致 */
                 margin: 0 5px;
-                color: black;
+                color: black; /* 按鈕顏色設置為黑色，無顏色顯示 */
             }
-            /* 強制讓 539! 顯示在一行 */
             #content-wrapper {
-                white-space: nowrap;
-                font-size: 60px;
+                line-height: 70px; /* 垂直置中 */
             }
         }
+        /* 去掉按鈕懸浮效果 */
         .button:hover {
             background: transparent;
-        }
-        input {
-            display: none;
         }
     </style>
 </head>
 <body>
     <h1>
         <button id="button5" class="button">5</button>
-        <span id="content-wrapper">
-            <button class="button" style="font-size: 80px;">3</button>
-            <button class="button" style="font-size: 80px;">9!</button>
-        </span>
+        <span id="content-wrapper">3</span>
+        <button id="button9" class="button">9!</button>
     </h1>
 
-    <!-- 原始顯示內容 -->
-    <span id="content1" style="display:block;">35×36×37×38×39二三×3</span><br>
-    <span id="content2" style="display:block;">35×36×37×38×39二三×1</span><br>
-    <span id="content3" style="display:block;">35×36×37×38×39二三×1</span><br>
-    <span id="content4" style="display:block;">35×36×37×38×39二三×1</span><br>
-    <span id="content5" style="display:block;">35×36×37×38×39二三×1</span><br>
+    <span id="content1" style="display:block;"></span><br>
+    <span id="content2" style="display:block;"></span><br>
+    <span id="content3" style="display:block;"></span><br>
+    <span id="content4" style="display:block;"></span><br>
+    <span id="content5" style="display:block;"></span><br>
 
-    <!-- 顯示輸入框 -->
-    <div class="input-wrapper" style="display: none;">
-        <input id="input1" type="text" placeholder="修改內容1" />
-        <input id="input2" type="text" placeholder="修改內容2" />
-        <input id="input3" type="text" placeholder="修改內容3" />
-        <input id="input4" type="text" placeholder="修改內容4" />
-        <input id="input5" type="text" placeholder="修改內容5" />
+    <!-- 用戶輸入新的內容 -->
+    <div class="input-wrapper">
+        <input type="text" id="input1" style="display:none;" placeholder="修改內容1">
+        <input type="text" id="input2" style="display:none;" placeholder="修改內容2">
+        <input type="text" id="input3" style="display:none;" placeholder="修改內容3">
+        <input type="text" id="input4" style="display:none;" placeholder="修改內容4">
+        <input type="text" id="input5" style="display:none;" placeholder="修改內容5">
     </div>
 </body>
 </html>
