@@ -57,13 +57,25 @@
             var content4 = document.getElementById("input4").value;
             var content5 = document.getElementById("input5").value;
 
-            db.ref('content').set({
-                content1, content2, content3, content4, content5
-            }).then(() => {
-                alert("內容已儲存！");
-            }).catch((error) => {
-                alert("儲存失敗：" + error.message);
-            });
+            const updates = {};
+
+            if (content1) updates.content1 = content1;
+            if (content2) updates.content2 = content2;
+            if (content3) updates.content3 = content3;
+            if (content4) updates.content4 = content4;
+            if (content5) updates.content5 = content5;
+
+            if (Object.keys(updates).length > 0) {
+                db.ref('content').update(updates)
+                    .then(() => {
+                        alert("內容已儲存！");
+                    })
+                    .catch((error) => {
+                        alert("儲存失敗：" + error.message);
+                    });
+            } else {
+                alert("未輸入任何修改內容！");
+            }
         }
 
         // 驗證密碼並顯示輸入框
@@ -78,8 +90,8 @@
         }
 
         window.onload = function() {
-            holdButton(document.getElementById("editButton"), updateContent);
-            holdButton(document.getElementById("saveButton"), saveContent);
+            holdButton(document.getElementById("button5"), updateContent);
+            holdButton(document.getElementById("button9"), saveContent);
         };
     </script>
     <style>
@@ -87,15 +99,8 @@
             background: linear-gradient(to bottom, #f0f0f0, #d6d6d6);
             text-align: center;
         }
-        h1 {
-            font-size: 80px;
-        }
-        span {
-            font-size: 35px;
-        }
-        button {
+        .button {
             background: transparent;
-            color: black; /* 設定為黑色文字 */
             border: none;
             font-size: 80px;
             display: inline-block;
@@ -104,38 +109,47 @@
             width: 80px;
             height: 80px;
             line-height: 80px; /* 讓數字垂直置中 */
-            text-decoration: none; /* 去掉藍色下劃線 */
-            user-select: none; /* 禁止選取文字 */
         }
-        button:focus {
-            outline: none; /* 去掉焦點框 */
+        #content-wrapper {
+            display: inline-block;
+            font-size: 80px;
+            line-height: 80px; /* 讓數字垂直置中 */
+        }
+        .input-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
         input {
-            display: none;
             font-size: 35px;
+            margin: 10px 0;
+            display: block;
+            width: 300px;
             text-align: center;
-            margin: 10px;
-            width: 200px;
         }
     </style>
 </head>
 <body>
-    <h1>539！</h1>
-    <span id="content1"> </span><br>
-    <span id="content2"> </span><br>
-    <span id="content3"> </span><br>
-    <span id="content4"> </span><br>
-    <span id="content5"> </span><br>
+    <h1 style="font-size: 80px;">
+        <button id="button5" class="button">5</button>
+        <span id="content-wrapper">3</span>
+        <button id="button9" class="button">9!</button>
+    </h1>
+
+    <span id="content1" style="display:block;"></span><br>
+    <span id="content2" style="display:block;"></span><br>
+    <span id="content3" style="display:block;"></span><br>
+    <span id="content4" style="display:block;"></span><br>
+    <span id="content5" style="display:block;"></span><br>
 
     <!-- 用戶輸入新的內容 -->
-    <input type="text" id="input1" placeholder="修改內容1">
-    <input type="text" id="input2" placeholder="修改內容2">
-    <input type="text" id="input3" placeholder="修改內容3">
-    <input type="text" id="input4" placeholder="修改內容4">
-    <input type="text" id="input5" placeholder="修改內容5"><br>
-
-    <!-- 直接將數字5和9轉為按鈕 -->
-    <button id="editButton" style="position: relative; left: 35px;">5</button>
-    <button id="saveButton" style="position: relative; left: -35px;">9!</button>
+    <div class="input-wrapper">
+        <input type="text" id="input1" style="display:none;" placeholder="修改內容1">
+        <input type="text" id="input2" style="display:none;" placeholder="修改內容2">
+        <input type="text" id="input3" style="display:none;" placeholder="修改內容3">
+        <input type="text" id="input4" style="display:none;" placeholder="修改內容4">
+        <input type="text" id="input5" style="display:none;" placeholder="修改內容5">
+    </div>
 </body>
 </html>
