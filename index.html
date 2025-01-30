@@ -99,8 +99,9 @@
         function updateContent() {
             var password = prompt("請輸入密碼進行修改：");
             if (password === "888") {
-                document.querySelectorAll("input").forEach(input => input.style.display = "block");
+                // 密碼正確，隱藏原始內容，顯示輸入框
                 document.querySelectorAll("span").forEach(span => span.style.display = "none");
+                document.querySelectorAll("input").forEach(input => input.style.display = "block");
                 alert("您現在可以修改內容！");
             } else {
                 alert("密碼錯誤！");
