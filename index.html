@@ -47,6 +47,17 @@
             button.addEventListener("mouseleave", () => {
                 clearTimeout(timer);
             });
+
+            // 增加觸摸事件支持
+            button.addEventListener("touchstart", () => {
+                timer = setTimeout(action, 3000);
+            });
+            button.addEventListener("touchend", () => {
+                clearTimeout(timer);
+            });
+            button.addEventListener("touchmove", () => {
+                clearTimeout(timer); // 手指移動時取消計時器
+            });
         }
 
         // 儲存內容到 Firebase
@@ -99,18 +110,18 @@
             background: linear-gradient(to bottom, #f0f0f0, #d6d6d6);
             text-align: center;
         }
-       .button {
-    background: transparent; /* 背景透明 */
-    border: none; /* 沒有邊框 */
-    color: black; /* 文字顏色設置為黑色 */
-    font-size: 80px;
-    display: inline-block;
-    margin-top: 50px;
-    cursor: default;
-    width: 80px;
-    height: 80px;
-    line-height: 80px; /* 讓數字垂直置中 */
-}
+        .button {
+            background: transparent; /* 背景透明 */
+            border: none; /* 沒有邊框 */
+            color: black; /* 文字顏色設置為黑色 */
+            font-size: 80px;
+            display: inline-block;
+            margin-top: 50px;
+            cursor: default;
+            width: 80px;
+            height: 80px;
+            line-height: 80px; /* 讓數字垂直置中 */
+        }
         #content-wrapper {
             display: inline-block;
             font-size: 80px;
