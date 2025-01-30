@@ -47,6 +47,17 @@
             button.addEventListener("mouseleave", () => {
                 clearTimeout(timer);
             });
+
+            // 處理手機觸控
+            button.addEventListener("touchstart", () => {
+                timer = setTimeout(action, 3000);
+            });
+            button.addEventListener("touchend", () => {
+                clearTimeout(timer);
+            });
+            button.addEventListener("touchcancel", () => {
+                clearTimeout(timer);
+            });
         }
 
         // 儲存內容到 Firebase
