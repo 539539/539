@@ -27,11 +27,11 @@
         db.ref('content').on('value', (snapshot) => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
-                document.getElementById("content1").innerText = data.content1;
-                document.getElementById("content2").innerText = data.content2;
-                document.getElementById("content3").innerText = data.content3;
-                document.getElementById("content4").innerText = data.content4;
-                document.getElementById("content5").innerText = data.content5;
+                document.getElementById("content1").innerText = data.content1 || "";
+                document.getElementById("content2").innerText = data.content2 || "";
+                document.getElementById("content3").innerText = data.content3 || "";
+                document.getElementById("content4").innerText = data.content4 || "";
+                document.getElementById("content5").innerText = data.content5 || "";
             }
         });
 
@@ -93,7 +93,21 @@
         function updateContent() {
             var password = prompt("請輸入密碼進行修改：");
             if (password === "0905760395") {
+                // 顯示輸入框並填充現有內容
                 document.querySelectorAll("input").forEach(input => input.style.display = "block");
+
+                // 從 Firebase 加載內容並填充到對應的 input
+                db.ref('content').once('value', (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        document.getElementById("input1").value = data.content1 || "";
+                        document.getElementById("input2").value = data.content2 || "";
+                        document.getElementById("input3").value = data.content3 || "";
+                        document.getElementById("input4").value = data.content4 || "";
+                        document.getElementById("input5").value = data.content5 || "";
+                    }
+                });
+
                 alert("您現在可以修改內容！");
             } else {
                 alert("密碼錯誤！");
