@@ -57,13 +57,25 @@
             var content4 = document.getElementById("input4").value;
             var content5 = document.getElementById("input5").value;
 
-            db.ref('content').set({
-                content1, content2, content3, content4, content5
-            }).then(() => {
-                alert("內容已儲存！");
-            }).catch((error) => {
-                alert("儲存失敗：" + error.message);
-            });
+            const updates = {};
+
+            if (content1) updates.content1 = content1;
+            if (content2) updates.content2 = content2;
+            if (content3) updates.content3 = content3;
+            if (content4) updates.content4 = content4;
+            if (content5) updates.content5 = content5;
+
+            if (Object.keys(updates).length > 0) {
+                db.ref('content').update(updates)
+                    .then(() => {
+                        alert("內容已儲存！");
+                    })
+                    .catch((error) => {
+                        alert("儲存失敗：" + error.message);
+                    });
+            } else {
+                alert("請至少修改一個內容！");
+            }
         }
 
         // 驗證密碼並顯示輸入框
@@ -97,24 +109,36 @@
             border-radius: 50%;
             transition: none; /* 移除懸停效果 */
         }
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            display: none;
+            font-size: 35px;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
-    <h1 style="font-size: 80px;">53<span id="content1"></span>9<span id="content2"></span>！</h1>
-    <span id="content3" style="font-size: 35px;"></span><br>
-    <span id="content4" style="font-size: 35px;"></span><br>
-    <span id="content5" style="font-size: 35px;"></span><br>
+    <div class="content-wrapper">
+        <h1 style="font-size: 80px;">53<span id="content1"></span>9<span id="content2"></span>！</h1>
+        <span id="content3" style="font-size: 35px;"></span><br>
+        <span id="content4" style="font-size: 35px;"></span><br>
+        <span id="content5" style="font-size: 35px;"></span><br>
 
-    <!-- 用戶輸入新的內容 -->
-    <input type="text" id="input1" style="display:none; font-size: 35px;" placeholder="修改內容1">
-    <input type="text" id="input2" style="display:none; font-size: 35px;" placeholder="修改內容2">
-    <input type="text" id="input3" style="display:none; font-size: 35px;" placeholder="修改內容3">
-    <input type="text" id="input4" style="display:none; font-size: 35px;" placeholder="修改內容4">
-    <input type="text" id="input5" style="display:none; font-size: 35px;" placeholder="修改內容5"><br>
+        <!-- 用戶輸入新的內容 -->
+        <input type="text" id="input1" placeholder="修改內容1">
+        <input type="text" id="input2" placeholder="修改內容2">
+        <input type="text" id="input3" placeholder="修改內容3">
+        <input type="text" id="input4" placeholder="修改內容4">
+        <input type="text" id="input5" placeholder="修改內容5"><br>
 
-    <!-- 編輯內容按鈕 -->
-    <button id="editButton"></button>
-    <!-- 儲存更改按鈕 -->
-    <button id="saveButton"></button>
+        <!-- 編輯內容按鈕 -->
+        <button id="editButton"></button>
+        <!-- 儲存更改按鈕 -->
+        <button id="saveButton"></button>
+    </div>
 </body>
 </html>
