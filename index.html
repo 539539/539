@@ -1,58 +1,123 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>539</title>
-    <style>
-        body {
-            background: linear-gradient(to bottom, #f0f0f0, #d6d6d6);
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>539!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);
+    }
 
-        .button, .content {
-            font-size: 80px;
-            display: inline-block;
-            height: 100px;
-            line-height: 100px; /* 垂直置中 */
-            width: 100px;
-            margin: 0;
-            color: black;
-            border: none;
-            background: transparent;
-            cursor: default;
-            -webkit-user-select: none; /* 禁止選擇文字 */
-            -moz-user-select: none;
-            user-select: none;
-        }
+    .container {
+      text-align: center;
+    }
 
-        .button:hover {
-            background: transparent; /* 去掉懸浮效果 */
-        }
+    .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      font-size: 5rem;
+      font-weight: bold;
+    }
 
-        /* 手機樣式調整 */
-        @media (max-width: 600px) {
-            .button, .content {
-                font-size: 50px;
-                height: 70px;
-                line-height: 70px;
-                width: 70px;
-            }
-        }
-    </style>
+    .title button, .title span {
+      all: unset;
+      display: inline-block;
+      width: 1.2em;
+      text-align: center;
+    }
+
+    .title button {
+      cursor: pointer;
+      border: 2px solid black;
+      border-radius: 5px;
+      padding: 0.2em 0.4em;
+      font-size: 5rem;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .content {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    .content div {
+      margin-bottom: 10px;
+    }
+
+    input {
+      display: none;
+      margin-top: 10px;
+      padding: 5px;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 <body>
-    <h1>
-        <button id="button5" class="button">5</button>
-        <span id="content3" class="content">3</span>
-        <button id="button9" class="button">9!</button>
-    </h1>
-
-    <div id="content-section">
-        <p>35×36×37×38×39三三×3</p>
-        <p>35×36×37×38×39三三×1</p>
-        <p>35×36×37×38×39三三×1</p>
+  <div class="container">
+    <div class="title">
+      <button id="btn5">5</button>
+      <span>3</span>
+      <button id="btn9">9!</button>
     </div>
+
+    <div class="content">
+      <div id="content1">35×36×37×38×39三三×3</div>
+      <div id="content2">35×36×37×38×39三三×1</div>
+      <div id="content3">35×36×37×38×39三三×1</div>
+    </div>
+
+    <input type="text" id="inputBox" placeholder="Enter new content">
+  </div>
+
+  <script>
+    const btn5 = document.getElementById('btn5');
+    const btn9 = document.getElementById('btn9');
+    const inputBox = document.getElementById('inputBox');
+    const contents = [
+      document.getElementById('content1'),
+      document.getElementById('content2'),
+      document.getElementById('content3')
+    ];
+
+    let currentEditingIndex = null;
+
+    btn5.addEventListener('mousedown', () => {
+      const password = prompt('Enter password:');
+      if (password === '539') {
+        currentEditingIndex = prompt('Which line (1, 2, or 3) do you want to edit?');
+        if (currentEditingIndex >= 1 && currentEditingIndex <= 3) {
+          currentEditingIndex -= 1; // Convert to 0-based index
+          inputBox.value = contents[currentEditingIndex].textContent;
+          inputBox.style.display = 'block';
+          inputBox.focus();
+        } else {
+          alert('Invalid line number.');
+        }
+      } else {
+        alert('Incorrect password.');
+      }
+    });
+
+    btn9.addEventListener('mousedown', () => {
+      if (currentEditingIndex !== null) {
+        contents[currentEditingIndex].textContent = inputBox.value;
+        inputBox.style.display = 'none';
+        currentEditingIndex = null;
+        alert('Content saved!');
+      } else {
+        alert('No line is being edited.');
+      }
+    });
+  </script>
 </body>
 </html>
