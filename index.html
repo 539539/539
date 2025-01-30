@@ -148,6 +148,7 @@
             width: 300px;
             text-align: center;
         }
+        /* 改進手機版樣式，使文字保持在同一行 */
         @media (max-width: 600px) {
             .button, #content-wrapper {
                 display: inline-block;
@@ -157,12 +158,17 @@
                 margin: 0 5px;
                 color: black;
             }
+            /* 強制讓 539! 顯示在一行 */
             #content-wrapper {
+                white-space: nowrap;
                 font-size: 60px;
             }
         }
         .button:hover {
             background: transparent;
+        }
+        input {
+            display: none;
         }
     </style>
 </head>
@@ -171,13 +177,15 @@
         <button id="button5" class="button">5</button>
         <span id="content-wrapper">
             <button class="button" style="font-size: 80px;">3</button>
+            <button class="button" style="font-size: 80px;">9!</button>
         </span>
-        <button id="button9" class="button">9!</button>
     </h1>
 
     <span id="content1" style="display:block;">35×36×37×38×39二三×3</span><br>
     <span id="content2" style="display:block;">35×36×37×38×39二三×1</span><br>
     <span id="content3" style="display:block;">35×36×37×38×39二三×1</span><br>
+    <span id="content4" style="display:block;">35×36×37×38×39二三×1</span><br>
+    <span id="content5" style="display:block;">35×36×37×38×39二三×1</span><br>
 
     <!-- 顯示輸入框 -->
     <div class="input-wrapper" style="display: none;">
