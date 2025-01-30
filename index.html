@@ -109,6 +109,7 @@
             width: 80px;
             height: 80px;
             line-height: 80px; /* 讓數字垂直置中 */
+            color: black; /* 設置文字顏色 */
         }
         #content-wrapper {
             font-size: 80px;
@@ -136,10 +137,15 @@
                 height: 70px;
                 line-height: 70px; /* 使按鈕和數字的高度一致 */
                 margin: 0 5px;
+                color: black; /* 按鈕顏色設置為黑色，無顏色顯示 */
             }
             #content-wrapper {
                 line-height: 70px; /* 垂直置中 */
             }
+        }
+        /* 去掉按鈕懸浮效果 */
+        .button:hover {
+            background: transparent;
         }
     </style>
 </head>
@@ -150,11 +156,11 @@
         <button id="button9" class="button">9!</button>
     </h1>
 
-    <span id="content1"></span><br>
-    <span id="content2"></span><br>
-    <span id="content3"></span><br>
-    <span id="content4"></span><br>
-    <span id="content5"></span><br>
+    <span id="content1" style="display:block;"></span><br>
+    <span id="content2" style="display:block;"></span><br>
+    <span id="content3" style="display:block;"></span><br>
+    <span id="content4" style="display:block;"></span><br>
+    <span id="content5" style="display:block;"></span><br>
 
     <!-- 用戶輸入新的內容 -->
     <div class="input-wrapper">
