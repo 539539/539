@@ -1,123 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>539!</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>539</title>
+    <!-- 引入 Firebase 庫 -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+    <script>
+        // Firebase 配置
+        const firebaseConfig = {
+            apiKey: "AIzaSyAUIF7Lw...",
+            authDomain: "project-5841418075685690201.firebaseapp.com",
+            databaseURL: "https://project-5841418075685690201-default-rtdb.firebaseio.com",
+            projectId: "project-5841418075685690201",
+            storageBucket: "project-5841418075685690201.appspot.com",
+            messagingSenderId: "598811156382",
+            appId: "1:598811156382:web:3674afd4af5c8d2f8dc08f"
+        };
 
-    .container {
-      text-align: center;
-    }
+        // 初始化 Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
-    .title {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      font-size: 5rem;
-      font-weight: bold;
-    }
+        // 監聽 Firebase 數據變化，實時更新畫面
+        db.ref('content').on('value', (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                document.getElementById("content1").innerText = data.content1;
+                document.getElementById("content2").innerText = data.content2;
+                document.getElementById("content3").innerText = data.content3;
+                document.getElementById("content4").innerText = data.content4;
+                document.getElementById("content5").innerText = data.content5;
+            }
+        });
 
-    .title button, .title span {
-      all: unset;
-      display: inline-block;
-      width: 1.2em;
-      text-align: center;
-    }
+        // 按住 3 秒觸發事件
+        function holdButton(button, action) {
+            let timer;
+            button.addEventListener("mousedown", () => {
+                timer = setTimeout(action, 3000);
+            });
+            button.addEventListener("mouseup", () => {
+                clearTimeout(timer);
+            });
+            button.addEventListener("mouseleave", () => {
+                clearTimeout(timer);
+            });
 
-    .title button {
-      cursor: pointer;
-      border: 2px solid black;
-      border-radius: 5px;
-      padding: 0.2em 0.4em;
-      font-size: 5rem;
-      background-color: white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+            // 處理手機觸控
+            button.addEventListener("touchstart", () => {
+                timer = setTimeout(action, 3000);
+            });
+            button.addEventListener("touchend", () => {
+                clearTimeout(timer);
+            });
+            button.addEventListener("touchcancel", () => {
+                clearTimeout(timer);
+            });
+        }
 
-    .content {
-      margin-top: 20px;
-      font-size: 1.2rem;
-    }
+        // 儲存內容到 Firebase
+        function saveContent() {
+            var content1 = document.getElementById("input1").value;
+            var content2 = document.getElementById("input2").value;
+            var content3 = document.getElementById("input3").value;
+            var content4 = document.getElementById("input4").value;
+            var content5 = document.getElementById("input5").value;
 
-    .content div {
-      margin-bottom: 10px;
-    }
+            const updates = {};
 
-    input {
-      display: none;
-      margin-top: 10px;
-      padding: 5px;
-      font-size: 1rem;
-    }
-  </style>
+            if (content1) updates.content1 = content1;
+            if (content2) updates.content2 = content2;
+            if (content3) updates.content3 = content3;
+            if (content4) updates.content4 = content4;
+            if (content5) updates.content5 = content5;
+
+            if (Object.keys(updates).length > 0) {
+                db.ref('content').update(updates)
+                    .then(() => {
+                        alert("內容已儲存！");
+                    })
+                    .catch((error) => {
+                        alert("儲存失敗：" + error.message);
+                    });
+            } else {
+                alert("未輸入任何修改內容！");
+            }
+        }
+
+        // 驗證密碼並顯示輸入框
+        function updateContent() {
+            var password = prompt("請輸入密碼進行修改：");
+            if (password === "0905760395") {
+                document.querySelectorAll("input").forEach(input => input.style.display = "block");
+                alert("您現在可以修改內容！");
+            } else {
+                alert("密碼錯誤！");
+            }
+        }
+
+        window.onload = function() {
+            holdButton(document.getElementById("button5"), updateContent);
+            holdButton(document.getElementById("button9"), saveContent);
+        };
+    </script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #f0f0f0, #d6d6d6);
+            text-align: center;
+        }
+        .button {
+            background: transparent;
+            border: none;
+            font-size: 80px;
+            display: inline-block;
+            margin: 0;
+            cursor: default;
+            width: auto;
+            height: auto;
+            line-height: normal;
+            color: black;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        #content-wrapper {
+            font-size: 80px;
+            display: inline-block;
+            line-height: normal;
+            font-weight: normal;
+        }
+        .input-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        input {
+            font-size: 35px;
+            margin: 10px 0;
+            display: block;
+            width: 300px;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .button, #content-wrapper {
+                display: inline-block;
+                font-size: 50px;
+                height: auto;
+                line-height: normal;
+                margin: 0 5px;
+                color: black;
+            }
+        }
+        .button:hover {
+            background: transparent;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="title">
-      <button id="btn5">5</button>
-      <span>3</span>
-      <button id="btn9">9!</button>
-    </div>
+    <h1>
+        <button id="button5" class="button">5</button>
+        <span id="content-wrapper">
+            <button class="button" style="font-size: 80px;">3</button>
+        </span>
+        <button id="button9" class="button">9!</button>
+    </h1>
 
-    <div class="content">
-      <div id="content1">35×36×37×38×39三三×3</div>
-      <div id="content2">35×36×37×38×39三三×1</div>
-      <div id="content3">35×36×37×38×39三三×1</div>
-    </div>
-
-    <input type="text" id="inputBox" placeholder="Enter new content">
-  </div>
-
-  <script>
-    const btn5 = document.getElementById('btn5');
-    const btn9 = document.getElementById('btn9');
-    const inputBox = document.getElementById('inputBox');
-    const contents = [
-      document.getElementById('content1'),
-      document.getElementById('content2'),
-      document.getElementById('content3')
-    ];
-
-    let currentEditingIndex = null;
-
-    btn5.addEventListener('mousedown', () => {
-      const password = prompt('Enter password:');
-      if (password === '539') {
-        currentEditingIndex = prompt('Which line (1, 2, or 3) do you want to edit?');
-        if (currentEditingIndex >= 1 && currentEditingIndex <= 3) {
-          currentEditingIndex -= 1; // Convert to 0-based index
-          inputBox.value = contents[currentEditingIndex].textContent;
-          inputBox.style.display = 'block';
-          inputBox.focus();
-        } else {
-          alert('Invalid line number.');
-        }
-      } else {
-        alert('Incorrect password.');
-      }
-    });
-
-    btn9.addEventListener('mousedown', () => {
-      if (currentEditingIndex !== null) {
-        contents[currentEditingIndex].textContent = inputBox.value;
-        inputBox.style.display = 'none';
-        currentEditingIndex = null;
-        alert('Content saved!');
-      } else {
-        alert('No line is being edited.');
-      }
-    });
-  </script>
+    <span id="content1" style="display:block;">35×36×37×38×39二三×3</span><br>
+    <span id="content2" style="display:block;">35×36×37×38×39二三×1</span><br>
+    <span id="content3" style="display:block;">35×36×37×38×39二三×1</span><br>
 </body>
 </html>
