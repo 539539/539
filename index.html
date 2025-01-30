@@ -102,6 +102,20 @@
                 // 密碼正確，隱藏原始內容，顯示輸入框
                 document.querySelectorAll("span").forEach(span => span.style.display = "none");
                 document.querySelectorAll("input").forEach(input => input.style.display = "block");
+
+                // 讓輸入框顯示 Firebase 內容
+                const content1 = document.getElementById("content1").innerText;
+                const content2 = document.getElementById("content2").innerText;
+                const content3 = document.getElementById("content3").innerText;
+                const content4 = document.getElementById("content4").innerText;
+                const content5 = document.getElementById("content5").innerText;
+
+                document.getElementById("input1").value = content1;
+                document.getElementById("input2").value = content2;
+                document.getElementById("input3").value = content3;
+                document.getElementById("input4").value = content4;
+                document.getElementById("input5").value = content5;
+
                 alert("您現在可以修改內容！");
             } else {
                 alert("密碼錯誤！");
@@ -206,4 +220,3 @@
     </div>
 </body>
 </html>
-0
